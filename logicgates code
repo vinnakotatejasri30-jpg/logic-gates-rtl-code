@@ -1,0 +1,40 @@
+/////design code
+module logic_gates(a,b,y_and,y_or,y_not,y_nand,y_nor,y_xor,y_xnor);
+  input a,b;
+  output y_and;
+  output y_or;
+  output y_not;
+  output y_nand;
+  output y_nor;
+  output y_xor;
+  output y_xnor;
+  and a1(y_and,a,b);
+  or o1(y_or,a,b);
+  not n1(y_not,a);
+  nand n2(y_nand,a,b);
+  nor n3(y_nor,a,b);
+  xor x1(y_xor,a,b);
+  xnor x2(y_xnor,a,b);
+endmodule
+
+////testbench code
+module logic_gates_tb();
+   reg a,b;
+   wire y_and;
+  wire y_or;
+  wire y_not;
+  wire y_nand;
+  wire y_nor;
+  wire y_xor;
+  wire y_xnor;
+  logic_gates DUT (.a(a),.b(b),.y_and(y_and),.y_or(y_or),.y_not(y_not),.y_nand(y_nand),.y_nor(y_nor),.y_xor(y_xor),.y_xnor(y_xnor));
+  initial begin $dumpfile("dump.vcd"); $dumpvars;
+    $monitor("a=%b b=%b | AND=%b OR=%b NOT=%b NAND=%b NOR=%b XOR=%b XNOR=%b",
+          a,b,y_and,y_or,y_not,y_nand,y_nor,y_xor,y_xnor);
+    a=0;b=0;#5;
+    a=0;b=1;#5;
+    a=1;b=0;#5;
+    a=1;b=1;#5;
+    $finish;
+  end
+   endmodule
